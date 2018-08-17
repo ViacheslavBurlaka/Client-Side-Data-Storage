@@ -38,6 +38,5 @@ window.onload = function () {
     // Create cookie
     document.cookie = cookieStr;
   }
-
-
+  
 };
