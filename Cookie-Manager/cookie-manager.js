@@ -7,7 +7,6 @@
  * version 1.0
  *
  * Copyright 2018 Burlakaviacheslav@gmail.com
- * Released by MIT license
  *
  *
  */
@@ -90,6 +89,14 @@
       this.set(name, '', -1);
     },
 
+    /**
+     *
+     * Retrieve all cookies
+     * @returns {Array} cookiesList
+     *
+     */
+
+
     getAll: function () {
       let cookies = document.cookie.split(';').map(function (cookie) {
         return cookie.trim();
@@ -109,6 +116,12 @@
       return cookiesList;
     },
 
+    /**
+     *
+     * Remove all cookies
+     *
+     */
+
     clear: function () {
       let cookies = document.cookie.split(';').map(function (cookie) {
         return cookie.trim();
@@ -127,8 +140,25 @@
   };
 
 
-  window.CookieManager = CookieManager;
+// https://auth0.com/blog/javascript-module-systems-showdown/
+  // https://gist.github.com/CrocoDillon/9990078
 
+  // AMD support
+  if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return CookieManager;
+    });
+    // CommonJS and Node.js module support.
+  } else if (typeof exports !== 'undefined') {
+    // Support Node.js specific `module.exports` (which can be a function)
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = CookieManager;
+    }
+    // But always support CommonJS module 1.1.1 spec (`exports` cannot be a function)
+    exports.CookieManager = CookieManager;
+  } else {
+    window.CookieManager = CookieManager;
+  }
 
 })(window, document);
 
