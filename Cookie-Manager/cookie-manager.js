@@ -80,6 +80,47 @@
       }
 
       return undefined;
+    },
+
+    update: function (name, value, expires, domain, path, secure) {
+      this.set(name, value, expires, domain, path, secure);
+    },
+
+    remove: function (name) {
+      this.set(name, '', -1);
+    },
+
+    getAll: function () {
+      let cookies = document.cookie.split(';').map(function (cookie) {
+        return cookie.trim();
+      });
+
+      let cookiesList = [];
+
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].split('=');
+        let key = cookie[0];
+        let value = cookie[1];
+
+        cookiesList.push({key: key, value: value})
+
+      }
+
+      return cookiesList;
+    },
+
+    clear: function () {
+      let cookies = document.cookie.split(';').map(function (cookie) {
+        return cookie.trim();
+      });
+
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].split('=');
+        let key = cookie[0];
+        let value = cookie[1];
+        this.remove(key);
+      }
+
     }
 
 
